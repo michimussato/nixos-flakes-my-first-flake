@@ -7,4 +7,3 @@
 # folders starting with __SECRET__
 # */__SECRET__*/** filter=git-crypt diff=git-crypt
 **/__SECRET__*/** filter=git-crypt diff=git-crypt
-. !text !filter !merge !diff

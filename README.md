@@ -77,3 +77,14 @@ bash ${NUKE}.run --accept-foundry-eula --prefix=./Nuke
 rm ${NUKE}.tgz
 rm ${NUKE}.run
 ```
+
+---
+
+# RnD
+
+```shell
+sudo nixos-rebuild boot --flake github:michimussato/nixos-flakes-my-first-flake
+```
+
+- https://nixos.asia/en/nixos-install-flake
+- https://discourse.nixos.org/t/how-to-get-nixos-install-flake-to-work/10069

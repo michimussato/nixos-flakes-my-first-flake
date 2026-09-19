@@ -22,7 +22,7 @@ in
 {
   imports =
   [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    ./hardware-configuration.qemu.nix
     # Packages
 #    ./packages/djv.nix
 #    ./packages/pycharm.nix
@@ -280,13 +280,15 @@ in
     ];
   };
 
+  # Only enable either docker or podman -- Not both
+  # - https://github.com/Sly-Harvey/NixOS/blob/master/modules/core/virtualisation.nix
   virtualisation = {
     docker = {
       enable = true;
       enableOnBoot = true;
     };
     podman = {
-      enable = true;
+      enable = false;
     };
 #    containerd = {
 #      enable = true;

@@ -24,6 +24,11 @@ git lfs track "*.png"
 > Note that this will rewrite history and change 
 > all of the Git object IDs in your repository, 
 > just like the export version of this command.
+> 
+> convert back to normal non-LFS repo:
+> ```shell
+> git lfs migrate export --include="*.png" --everything
+> ```
 
 Nix flakes:
 - https://nixos-and-flakes.thiscute.world/other-usage-of-flakes/inputs

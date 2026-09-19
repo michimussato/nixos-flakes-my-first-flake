@@ -14,8 +14,17 @@
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems = [ "nfs" "nfs4" ];
 
+  # # maybe this will have to go here when using flakes?
+  # # Use the GRUB 2 boot loader.
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "/dev/sda";
+  # boot.loader.grub.useOSProber = true;
+  #
+  # # Use latest kernel.
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/abc59882-649b-4c47-ac5e-cad058c6e08c";
+    { device = "/dev/disk/by-label/sda1";
       fsType = "ext4";
     };
 

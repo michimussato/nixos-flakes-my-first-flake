@@ -1,5 +1,5 @@
 ```shell
-sudo nixos-rebuild boot --flake .#nixos-tutorial
+sudo nixos-rebuild boot --flake .#nixos-qemu
 [sudo] password for nixos: 
 building the system configuration...
 Checking switch inhibitors... done

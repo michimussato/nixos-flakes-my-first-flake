@@ -33,12 +33,14 @@ nix --experimental-features "nix-command flakes" flakes update
 
 Globally enable experimental features:
 ```nix
+{
   # Enable experimental Features
   nix.settings.experimental-features = [
   	# for `nix run`
     "nix-command"
     "flakes"
   ];
+}
 ```
 
 [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)

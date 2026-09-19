@@ -37,7 +37,7 @@
 #    ];
     nixosConfigurations = {
       # This ideally reflects a hostname (but that's not a requirement)
-      nixos-tutorial = lib.nixosSystem {
+      nixos-qemu = lib.nixosSystem {
         inherit system;
 #        inherit insecureNixPkg;
         modules = [

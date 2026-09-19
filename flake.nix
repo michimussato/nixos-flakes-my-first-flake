@@ -3,6 +3,10 @@
   description = "My first flake";
 
   inputs = {
+    # https://nix.dev/manual/nix/2.34/command-ref/new-cli/nix3-flake.html#self-attributes1
+    self.submodule = false;
+    self.lfs = true;  # because Wallpapers are tracked with LFS
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     # home-manager
     home-manager = {

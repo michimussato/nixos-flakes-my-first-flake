@@ -24,3 +24,7 @@ git lfs track "*.png"
 > Note that this will rewrite history and change 
 > all of the Git object IDs in your repository, 
 > just like the export version of this command.
+
+Nix flakes:
+- https://nixos-and-flakes.thiscute.world/other-usage-of-flakes/inputs
+- https://github.com/NixOS/nix/issues/15285

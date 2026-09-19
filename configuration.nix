@@ -24,8 +24,6 @@ in
   [ # Include the results of the hardware scan.
     ./hardware-configuration.qemu.nix
     # Packages
-#    ./packages/djv.nix
-#    ./packages/pycharm.nix
   ];
 
   hardware.openrazer.users = [ "nixos" ];
@@ -153,16 +151,13 @@ in
     ];
   };
 
-#  # Install firefox.
-#  programs.firefox.enable = true;
+  # Install firefox.
+  # leave this enabled so that we always have
+  # a browser to work with
+  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-#  nixpkgs.config.permittedInsecurePackages = [
-#    # deps for djv
-#    "openexr-2.5.10"
-#    "ilmbase-2.5.10"
-#  ];
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -193,9 +188,6 @@ in
       type=image
     '')
   ];
-
-#  pkg_djv.enable = false;
-#  pkg_pycharm.enable = false;
 
   # # Shells
   # environment.shells = with pkgs; [
@@ -262,6 +254,7 @@ in
   # devenv
   # - https://discourse.nixos.org/t/devenv-sh-python-and-cachix-questions/78151/11
   # - https://devenv.sh/binary-caching/#adding-yourself-to-trusted-users
+  # nix.settings.trusted-users = [ "root" "@wheel" ];
   nix.settings.trusted-users = [
     "root"
     "nixos"
@@ -290,9 +283,6 @@ in
     podman = {
       enable = false;
     };
-#    containerd = {
-#      enable = true;
-#    };
   };
   # error:
   # Failed assertions:
@@ -316,6 +306,7 @@ in
   # Try this from VirtualBox?
   # - [x] tested
   # - [x] works
+  # - [ ] make sure the system works even if the mount fails
   fileSystems."/data" = {
     # sudo systemctl status data.mount
     device = "miniboss.meemoo.lan:/data";

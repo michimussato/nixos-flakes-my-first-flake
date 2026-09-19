@@ -6,5 +6,6 @@
 # folders starting with __SECRET__
 # */__SECRET__*/** filter=git-crypt diff=git-crypt
 **/__SECRET__*/** filter=git-crypt diff=git-crypt
+*.png filter=lfs diff=lfs merge=lfs -text
 *.png !text !filter !merge !diff
 . !text !filter !merge !diff

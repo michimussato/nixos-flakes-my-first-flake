@@ -24,7 +24,7 @@
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/sda1";
+    { device = "/dev/disk/by-label/root";
       fsType = "ext4";
     };
 

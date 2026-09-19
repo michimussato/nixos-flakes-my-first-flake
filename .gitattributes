@@ -1,4 +1,3 @@
-# git-crypt
 # files starting with __SECRET__
 # This does not consider the root content - nested only
 # */__SECRET__* filter=git-crypt diff=git-crypt
@@ -7,4 +6,5 @@
 # folders starting with __SECRET__
 # */__SECRET__*/** filter=git-crypt diff=git-crypt
 **/__SECRET__*/** filter=git-crypt diff=git-crypt
+*.png !text !filter !merge !diff
 . !text !filter !merge !diff

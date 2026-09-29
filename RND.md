@@ -1,0 +1,356 @@
+<!-- TOC -->
+* [Transition to NixOS](#transition-to-nixos)
+  * [Install `nix` on Manjaro](#install-nix-on-manjaro)
+  * [Learn `nix`](#learn-nix)
+    * [NixOS](#nixos)
+    * [nix Store](#nix-store)
+    * [Configuration File](#configuration-file)
+    * [Built Ins](#built-ins)
+    * [Editor Setup](#editor-setup)
+    * [Development Environments](#development-environments)
+      * [devenv](#devenv)
+        * [Cachix](#cachix)
+    * [Experimental Features](#experimental-features)
+    * [Window Managers](#window-managers)
+      * [niri](#niri)
+    * [Community Projects](#community-projects)
+      * [nix-community](#nix-community)
+        * [Home Manager](#home-manager)
+        * [Plasma Manager](#plasma-manager)
+      * [NGI Forge](#ngi-forge)
+      * [flake-parts](#flake-parts)
+      * [nix-topology](#nix-topology)
+  * [Practical](#practical)
+    * [Nix Config](#nix-config)
+    * [Nix/NixOS Upgrade](#nixnixos-upgrade)
+    * [Flakes](#flakes)
+      * [Helpful `nix repl` Commands (for Debugging)](#helpful-nix-repl-commands-for-debugging)
+        * [Ex: Working with a `flake.nix`](#ex-working-with-a-flakenix)
+      * [flake-utils](#flake-utils)
+      * [Starter Configs](#starter-configs)
+      * [Dendritic](#dendritic)
+        * [flake-parts](#flake-parts-1)
+<!-- TOC -->
+
+---
+
+# Transition to NixOS
+
+- [x] [Install `nix` on Manjaro](#install-nix-on-manjaro)
+
+## Install `nix` on Manjaro
+
+Reference:
+- https://nixos.org/download/#download-nix
+
+```shell
+curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
+```
+
+## Learn `nix`
+
+References:
+- [Nix Language Explained](https://www.youtube.com/watch?v=UgrwoAGSPOQ)
+- [Stop Guessing: Debug Your Nix Code Fast | Nix REPL](https://www.youtube.com/watch?v=swiWnAwionc)
+- [MyNixOS](https://mynixos.com/)
+- [garnix](https://github.com/garnix-io)
+- [LibrePhoenix](https://www.youtube.com/@librephoenix)
+- [Vimjoyer](https://www.youtube.com/@vimjoyer)
+  - [Github](https://github.com/vimjoyer/modularize-video)
+- [Ellyse](https://www.youtube.com/playlist?list=PL-oJWTgK9N6_tJ751N-TvhcF0aPu39zEY)
+  - What is Gleam?
+
+### NixOS
+
+- [NixOS.org](https://nixos.org/)
+  - Manuals
+    - [Nix Manual](https://nixos.org/manual/nix/stable)
+    - [Nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable)
+    - [NixOS Manual](https://nixos.org/manual/nixos/stable)
+  - [Search Packages](https://search.nixos.org/packages)
+  - [Search Options](https://search.nixos.org/options)
+- [Manual](https://nixos.org/manual/nixos/stable/)
+- [NixOS Wiki](https://wiki.nixos.org/wiki/NixOS_Wiki)
+  - [Cheat Sheet](https://wiki.nixos.org/wiki/Cheatsheet)
+  - [Flakes](https://wiki.nixos.org/wiki/Flakes)
+- [Nix Pills](https://nixos.org/guides/nix-pills/)
+- [nix.dev](https://nix.dev/)
+  - [As PDF](https://nix.dev/nix-dev.pdf)
+- [Vimjoyer - NixOS Configuration](https://www.youtube.com/watch?v=2eNJy9DSGNw)
+
+### nix Store
+
+- [Moving the Store](https://nixos.wiki/wiki/Storage_optimization#Moving_the_store)
+
+### Configuration File
+
+- https://nix.dev/manual/nix/2.34/command-ref/conf-file
+
+### Built Ins
+
+Resources:
+- [teu5us - Nix (builtins) & Nixpkgs (lib) Functions](https://teu5us.github.io/nix-lib.html)
+
+### Editor Setup
+
+References:
+- [Easiest Way To Write Nix | Code Editor Setup](https://www.youtube.com/watch?v=M_zMoHlbZBY)
+- [NixOS Development Environment/Shells for Programming](https://www.youtube.com/watch?v=yds4CZ5N_40)
+
+### Development Environments
+
+References:
+- [NixOS Development Environment/Shells for Programming](https://www.youtube.com/watch?v=yds4CZ5N_40)
+- [Michael Stapelberg - Development shells with Nix: four quick examples](https://michael.stapelberg.ch/posts/2025-07-27-dev-shells-with-nix-4-quick-examples/)
+- [juliusunscripted - Configure a nix flake development shell](https://www.juliusunscripted.com/posts/configure-nix-flake-development-shell/)
+- [](https://gitlab.com/Mideno/pwnbelt/-/blob/V1.0.0/flake.nix?ref_type=tags)
+
+#### devenv
+
+References:
+- [Devenv.sh: Instant Reproducible Dev Environments with Nix](https://www.youtube.com/watch?v=Oj9AxyiaVvU)
+
+##### Cachix
+
+- [Adding yourself to `trusted-users`](https://devenv.sh/binary-caching/#adding-yourself-to-trusted-users)
+- [Devenv.sh, python and cachix questions](https://discourse.nixos.org/t/devenv-sh-python-and-cachix-questions/78151/9)
+
+Todo:
+- [ ] Cachix explanation
+
+```nix
+{
+  # Is this actually needed?
+  services.cachix-agent.enable = true;
+  
+  # Todo:
+  # try with
+  # nix.settings.trusted-users = [ "root" "@wheel" ];
+  # instead of
+  nix.settings.trusted-users = [
+    "root"
+    "nixos"
+    # "michael"
+  ];
+}
+```
+
+### Experimental Features
+
+References:
+- [nix.dev - Experimental Features](https://nix.dev/manual/nix/2.35/development/experimental-features)
+- [nix.dev - Configuration File](https://nix.dev/manual/nix/2.35/command-ref/conf-file#conf-experimental-features)
+
+How to enable:
+- temporarily:
+  `nix --extra-experimental-features "nix-command flakes" <subcommand>`
+- In `nix.conf`
+  - `experimental-features = nix-command flakes`
+- Enable with Env Var:
+  Todo: is this even possible?
+- in `configuration.nix`
+  ```nix
+  {
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  }
+  ```
+  
+### Window Managers
+
+#### niri
+
+- [](https://github.com/niri-wm/niri)
+- [Vimjoyer - Ultimate NixOS Desktop: Niri, Noctalia Shell, and the Dendritic Pattern | Full Setup](https://www.youtube.com/watch?v=aNgujRXDTdE)
+  - https://github.com/vimjoyer/nixconf/blob/main/wrappedPrograms/niri.nix
+- [Nick Janetakis - How Is niri This Good? Live Demo + Config](https://www.youtube.com/watch?v=7XmD5UyyhZQ)
+
+### Community Projects
+
+#### nix-community
+
+- [nix-community](https://github.com/nix-community)
+  - [Repositories](https://github.com/orgs/nix-community/repositories)
+    - [awesome-nix](https://github.com/nix-community/awesome-nix)
+    - [[home-manager](https://github.com/nix-community/home-manager)](#home-manager)
+    - [[plasma-manager](https://github.com/nix-community/plasma-manager)](#plasma-manager)
+
+##### Home Manager
+
+https://github.com/nix-community/home-manager
+
+##### Plasma Manager
+
+Todo:
+- [ ] Check tiling managers
+  - [](https://krohnkite.com/#)
+
+https://github.com/nix-community/plasma-manager
+
+Examples:
+- [](https://github.com/nix-community/plasma-manager/blob/trunk/examples/systemFlake/flake.nix)
+
+#### NGI Forge
+
+- [NGI Forge](https://ngi.nixos.org/)
+
+#### flake-parts
+
+
+- [home-manager](https://flake.parts/options/home-manager.html)
+- [](https://github.com/hercules-ci/flake-parts)
+
+#### nix-topology
+
+- [nix-topology](https://github.com/oddlama/nix-topology)
+
+flake-parts module:
+- https://github.com/oddlama/nix-topology#-installation-and-usage
+  - https://github.com/oddlama/nix-topology/issues/36
+
+## Practical
+
+### Nix Config
+
+```shell
+nix --extra-experimental-features "nix-command flakes" config show
+```
+
+### Nix/NixOS Upgrade
+
+References:
+- [Updating NixOS](https://wiki.nixos.org/wiki/Updating_NixOS)
+
+- `nixos-rebuild switch --upgrade`
+- `nixos-rebuild switch --flake <flake> --upgrade`
+
+### Flakes
+
+Resources:
+- [nix.dev - `nix flake`](https://nix.dev/manual/nix/2.34/command-ref/new-cli/nix3-flake.html#self-attributes1)
+- [Zero to Nix - Nix flakes](https://zero-to-nix.com/concepts/flakes/)
+- [NixOS & Flakes Book](https://nixos-and-flakes.thiscute.world/other-usage-of-flakes/inputs)
+- References:
+  - [Input schema](https://nixos.wiki/wiki/flakes#Input_schema)
+  - [Output schema](https://nixos.wiki/wiki/flakes#Output_schema)
+  - [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
+  - [Nix Flakes Explained](https://saylesss88.github.io/Nix_Flakes_Explained_4.html)
+
+Todo:
+- [ ] Investigate flakes with references to Git LFS
+  tracked contents.
+  - [git-lfs/git-lfs](https://github.com/git-lfs/git-lfs?utm_source=gitlfs_site&utm_medium=installation_link&utm_campaign=gitlfs#example-usage)
+  - [Github Docs - Configuring Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage)
+  - [Self-attributes](https://nix.dev/manual/nix/2.34/command-ref/new-cli/nix3-flake.html#self-attributes)
+    ```nix
+    {
+      inputs = {
+        self.lfs = true;
+      };
+    }
+    ```
+- [ ] How can we stop referencing things like:
+  - `boot.loader.grub.device`
+  - `boot.kernelPackages`
+  - `...`
+  in `configuration.nix`
+  - `hardware-configuration.nix`
+  in flake?
+- [ ] How to use/treat/provide secrets?
+  - [Vimjoyer - Secure Declarative Secrets With SecretSpec | dotenv Files On Steroids](https://www.youtube.com/watch?v=dII4uMU-5R8)
+  - [Vimjoyer - SecretSpec 0.18 is INCREDIBLE | SOPS & AGE support, More SDKs](https://www.youtube.com/watch?v=FMk8d8Komlw)
+- [ ] sddm: How to set avatars
+  - https://www.reddit.com/r/NixOS/comments/1cot084/is_there_way_to_make_sddm_to_display_users_avatars/
+
+#### Helpful `nix repl` Commands (for Debugging)
+
+References:
+- [](https://nix.dev/manual/nix/2.34/command-ref/new-cli/nix3-repl.html)
+  - [](https://teu5us.github.io/nix-lib.html)
+
+- `:load-flake .`
+- `:last-loaded`
+- `:print homeConfigurations`
+
+```shell
+nix repl --expr 'import <nixpkgs>{}'
+```
+
+##### Ex: Working with a `flake.nix`
+
+```shell
+nix flake update
+git add -A
+nix repl
+```
+
+```
+:lf .
+:ll
+```
+
+flake structure:
+```nix
+outPath
+outputs
+inputs
+sourceInfo
+narHash
+submodules
+dirtyRev
+dirtyShortRev
+lastModified
+lastModifiedDate
+_type
+apps
+checks
+devShells
+formatter
+legacyPackages
+nixosConfigurations
+nixosModules
+overlays
+packages
+homeModules
+homeConfigurations
+```
+
+#### flake-utils
+
+Todo:
+- [ ] understand `flake-utils`
+```nix
+{
+  inputs = {
+    # - https://michael.stapelberg.ch/posts/2025-07-27-dev-shells-with-nix-4-quick-examples/
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+}
+```
+
+#### Starter Configs
+
+https://github.com/Misterio77/nix-starter-configs
+
+#### Dendritic
+
+- [Adumh00man - Dendritic Nix is the Best Way to Configure a System](https://www.youtube.com/watch?v=buxopFR4VXQ)
+  - [voidarc/nixos](https://git.voidarc.co.uk/voidarc/nixos)
+    - `nix --extra-experimental-features "nix-command flakes" run "git+https://git.voidarc.co.uk/voidarc/nixos.git#davinci-resolve"`
+    - `nix --extra-experimental-features "nix-command flakes" run "git+https://git.voidarc.co.uk/voidarc/nixos.git#obs-studio"`
+    - `nix --extra-experimental-features "nix-command flakes" run "git+https://git.voidarc.co.uk/voidarc/nixos.git#nvim"`
+- [Vimjoyer - Ultimate NixOS Desktop: Niri, Noctalia Shell, and the Dendritic Pattern | Full Setup](https://www.youtube.com/watch?v=aNgujRXDTdE)
+  - [https://www.vimjoyer.com/vid79-parts-wrapped](https://www.vimjoyer.com/vid79-parts-wrapped)
+- [Vimjoyer - Best Modular Nix Flake Framework | Break Your Flake Into Parts](https://www.youtube.com/watch?v=kvprcW6QMIE)
+- [Vimjoyer - Elevate Your Nix Config With Dendritic Pattern](https://www.youtube.com/watch?v=-TRbzkw6Hjs)
+- [Dendrix](https://dendrix.denful.dev/Getting-Started.html)
+  - [Github - henrysipp/nix-setup](https://github.com/henrysipp/nix-setup/blob/nix-flakes/flake.nix)
+- https://simonshine.dk/articles/dendritic-sops-nix-flake-template/
+- [hcentner's blog](https://hcentner.dev/posts/2025-12-14-nixconfig)
+  - [Github - HarrisonCentner/nixconfig](https://github.com/HarrisonCentner/nixconfig)
+
+##### flake-parts
+
+- [home-manager](https://flake.parts/options/home-manager.html)

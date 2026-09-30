@@ -121,18 +121,23 @@ Todo:
 ```nix
 {
   # Is this actually needed?
-  services.cachix-agent.enable = true;
+  # probably not: services.cachix-agent.enable = true;
   
   # Todo:
-  # try with
-  # nix.settings.trusted-users = [ "root" "@wheel" ];
+  # - [x] try with:
+  nix.settings.trusted-users = [ "root" "@wheel" ];
   # instead of
-  nix.settings.trusted-users = [
-    "root"
-    "nixos"
-    # "michael"
-  ];
+  # nix.settings.trusted-users = [
+  #   "root"
+  #   "nixos"
+  #   # "michael"
+  # ];
 }
+```
+
+Add source (prompt will tell you):
+```shell
+devenv inputs add nixpkgs-python github:cachix/nixpkgs-python --follows nixpkgs
 ```
 
 ### Experimental Features

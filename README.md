@@ -3,7 +3,7 @@
 How to use this flake:
 1. Install OS
 2. Reboot
-3. Edit `configuration.nix`
+3. Edit `_configuration.nix`
    1. ```nix
       {
         # Enable experimental Features
@@ -75,7 +75,7 @@ nixos-rebuild switch --flake .
 Creates `flake.lock`
 Update `flake.lock`
 ```shell
-nix --experimental-features "nix-command flakes" flakes update
+nix --experimental-features "nix-command flakes" flake update
 ```
 
 Globally enable experimental features:

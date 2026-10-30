@@ -153,7 +153,7 @@ How to enable:
   - `experimental-features = nix-command flakes`
 - Enable with Env Var:
   Todo: is this even possible?
-- in `configuration.nix`
+- in `_configuration.nix`
   ```nix
   {
     nix.settings.experimental-features = [
@@ -260,8 +260,8 @@ Todo:
   - `boot.loader.grub.device`
   - `boot.kernelPackages`
   - `...`
-  in `configuration.nix`
-  - `hardware-configuration.nix`
+  in `_configuration.nix`
+  - `_hardware-configuration.nix`
   in flake?
 - [ ] How to use/treat/provide secrets?
   - [Vimjoyer - Secure Declarative Secrets With SecretSpec | dotenv Files On Steroids](https://www.youtube.com/watch?v=dII4uMU-5R8)
